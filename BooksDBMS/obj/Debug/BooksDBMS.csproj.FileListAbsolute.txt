@@ -1,0 +1,14 @@
+c:\users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\bin\Debug\BooksDBMS.exe.config
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\bin\Debug\BooksDBMS.exe
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\bin\Debug\BooksDBMS.pdb
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.csprojResolveAssemblyReference.cache
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\MainWindow.g.cs
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\App.g.cs
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS_MarkupCompile.cache
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS_MarkupCompile.lref
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\MainWindow.baml
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.g.resources
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.Properties.Resources.resources
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.csproj.GenerateResource.Cache
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.exe
+C:\Users\black_000\documents\visual studio 2015\Projects\BooksDBMS\BooksDBMS\obj\Debug\BooksDBMS.pdb
