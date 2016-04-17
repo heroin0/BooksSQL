@@ -36,15 +36,17 @@ namespace BooksDBMS
         {
             label.Content = "Образец инициализации объекта";
             string conn = @"Data Source=.\SQLEXPRESS;Initial Catalog=Books;Integrated Security=True";
-            publishersDataGrid.DataContext = IzdDataTable.DefaultView;//скармливает сюда datatable
+            publishersDataGrid.BeginInit();
+            publishersDataGrid.DataContext = IzdDataTable;//скармливает сюда datatable
             publishersDataGrid.Items.Refresh();
+            publishersDataGrid.EndInit();
             using (SqlConnection sc = new SqlConnection(conn))
             {
                 SqlCommand comm = new SqlCommand(@"SELECT [Value] FROM dbo.Izd", sc);
                 IzdDataAdapter = new SqlDataAdapter(comm);
                 IzdDataAdapter.Fill(IzdDataTable);
             }
-            
+           
         }
 
         private void OnRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)

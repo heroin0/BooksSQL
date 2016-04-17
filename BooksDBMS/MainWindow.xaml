@@ -25,7 +25,7 @@
                 <DataGrid x:Name="publishersDataGrid" HorizontalAlignment="Left" 
                           Margin="10,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-7.083,-0.231" 
                           Height="209" Width="432" Grid.ColumnSpan="2" AutoGenerateColumns="True" 
-                          RowEditEnding="OnRowEditEnding"/>
+                          RowEditEnding="OnRowEditEnding" IsSynchronizedWithCurrentItem="True"/>
                 <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.754,0.59"/>
             </Grid>
         </TabItem>
