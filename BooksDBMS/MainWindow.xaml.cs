@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
 
+
+
 namespace BooksDBMS
 {
     /// <summary>
@@ -24,34 +26,52 @@ namespace BooksDBMS
     {
         private DataTable IzdDataTable;
         private SqlDataAdapter IzdDataAdapter;
-
+        string conn = @"Data Source=.\SQLEXPRESS;Initial Catalog=Books;Integrated Security=True";
         public MainWindow()
         {
             InitializeComponent();
             IzdDataTable = new DataTable();
-
         }
 
         private void OnPublistSelect(object sender, RoutedEventArgs e)
         {
             label.Content = "Образец инициализации объекта";
-            string conn = @"Data Source=.\SQLEXPRESS;Initial Catalog=Books;Integrated Security=True";
             publishersDataGrid.BeginInit();
             publishersDataGrid.DataContext = IzdDataTable;//скармливает сюда datatable
             publishersDataGrid.Items.Refresh();
             publishersDataGrid.EndInit();
             using (SqlConnection sc = new SqlConnection(conn))
             {
-                SqlCommand comm = new SqlCommand(@"SELECT [Value] FROM dbo.Izd", sc);
+                SqlCommand comm = new SqlCommand(@"SELECT * FROM dbo.Izd", sc);
                 IzdDataAdapter = new SqlDataAdapter(comm);
                 IzdDataAdapter.Fill(IzdDataTable);
             }
            
         }
 
-        private void OnRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        private void publishersDataGrid_AutoGeneratingColumn(object sender, Microsoft.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
         {
-            SqlCommandBuilder cb = new SqlCommandBuilder(IzdDataAdapter);//автоматически создаёт insert,delete и update.
+            if (e.Column.Header.ToString() == "Key")
+                e.Column.Visibility = Visibility.Collapsed;
+        }
+
+        private void UpdateDB()
+        {
+            DataTable pubTable = publishersDataGrid.DataContext as DataTable;
+            if (pubTable != null)
+            {
+                using (SqlConnection sc = new SqlConnection(conn))
+                {
+                    SqlCommand comm = new SqlCommand(@"SELECT * FROM dbo.Izd", sc);
+                    IzdDataAdapter = new SqlDataAdapter(comm);
+                    IzdDataAdapter.Update(pubTable);
+                }
+            }
+        }
+
+        private void publishersDataGrid_RowEditEnding(object sender, Microsoft.Windows.Controls.DataGridRowEditEndingEventArgs e)
+        {
+
         }
     }
 }
