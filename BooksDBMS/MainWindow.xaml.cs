@@ -24,35 +24,38 @@ namespace BooksDBMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DataTable IzdDataTable;
-        private SqlDataAdapter IzdDataAdapter;
+        private DataTable IzdDataTable,BooksDataTable,AuthorsDataTable;
+        private SqlDataAdapter IzdDataAdapter, BooksDataAdapter, AuthorsDataAdapter;
         string conn = @"Data Source=.\SQLEXPRESS;Initial Catalog=Books;Integrated Security=True";
         public MainWindow()
         {
             InitializeComponent();
             IzdDataTable = new DataTable();
+            BooksDataTable = new DataTable();
+            AuthorsDataTable = new DataTable();
         }
 
+        #region publishers
         private void OnPublistSelect(object sender, RoutedEventArgs e)
         {
             label.Content = "Образец инициализации объекта";
             publishersDataGrid.BeginInit();
-            publishersDataGrid.DataContext = IzdDataTable;//скармливает сюда datatable
             publishersDataGrid.Items.Refresh();
+            publishersDataGrid.DataContext = IzdDataTable;//скармливает сюда datatable
             publishersDataGrid.EndInit();
             using (SqlConnection sc = new SqlConnection(conn))
             {
-                SqlCommand comm = new SqlCommand(@"SELECT * FROM dbo.Izd", sc);
+                SqlCommand comm = new SqlCommand(@"SELECT * FROM VIEW_FOR_DBSM_PUBLISHERS", sc);
                 IzdDataAdapter = new SqlDataAdapter(comm);
+                IzdDataTable.Clear();
                 IzdDataAdapter.Fill(IzdDataTable);
             }
-           
         }
 
         private void publishersDataGrid_AutoGeneratingColumn(object sender, Microsoft.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "Key")
-                e.Column.Visibility = Visibility.Collapsed;
+            //if (e.Column.Header.ToString() == "Key")
+            //    e.Column.Visibility = Visibility.Collapsed;
         }
 
         private void UpdateDB()
@@ -62,16 +65,63 @@ namespace BooksDBMS
             {
                 using (SqlConnection sc = new SqlConnection(conn))
                 {
-                    SqlCommand comm = new SqlCommand(@"SELECT * FROM dbo.Izd", sc);
+                    sc.Open();
+                    SqlCommand comm = new SqlCommand(@"SELECT Value AS Издательство FROM dbo.Izd", sc);
                     IzdDataAdapter = new SqlDataAdapter(comm);
-                    IzdDataAdapter.Update(pubTable);
+                    SqlCommandBuilder commBuilder = new SqlCommandBuilder(IzdDataAdapter);
+                    try
+                    {
+            //            pubTable.AcceptChanges();
+                        IzdDataAdapter.Update(pubTable);
+                    }
+                    catch (DBConcurrencyException) { };
+
                 }
             }
         }
 
         private void publishersDataGrid_RowEditEnding(object sender, Microsoft.Windows.Controls.DataGridRowEditEndingEventArgs e)
         {
+            (e.Row.Item as DataRowView).EndEdit();
+            UpdateDB();
+        }
+
+        #endregion
+
+        #region books
+
+        private void booksDataGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
 
         }
+
+        private void booksDataGrid_RowEditEnding(object sender, Microsoft.Windows.Controls.DataGridRowEditEndingEventArgs e)
+        {
+            (e.Row.Item as DataRowView).EndEdit();
+            UpdateDB();
+        }
+
+        private void booksDataGrid_AutoGeneratingColumn(object sender, Microsoft.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
+        {
+            //if (e.Column.Header.ToString() == "Book Key")
+            //    e.Column.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnBooklistSelect(object sender, RoutedEventArgs e)
+        {
+            booksDataGrid.BeginInit();
+            booksDataGrid.Items.Refresh();
+            booksDataGrid.DataContext = BooksDataTable;//скармливает сюда datatable
+            booksDataGrid.EndInit();
+            using (SqlConnection sc = new SqlConnection(conn))
+            {
+                SqlCommand comm = new SqlCommand(@"SELECT * FROM dbo.VIEW_FOR_DBSM_BOOKS", sc);
+                BooksDataAdapter = new SqlDataAdapter(comm);
+                BooksDataTable.Clear();
+                BooksDataAdapter.Fill(BooksDataTable);
+            }
+        }
+
+        #endregion
     }
 }

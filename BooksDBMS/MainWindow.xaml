@@ -8,24 +8,60 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="530" Width="594">
 
-    <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="280" Margin="57,26,0,0" VerticalAlignment="Top" Width="458"  >
-        <TabItem Header="Книги">
+    <TabControl x:Name="tabControl"
+                HorizontalAlignment="Left"
+                Height="280"
+                Margin="57,26,0,0"
+                VerticalAlignment="Top"
+                Width="458"  >
+        <TabItem Header="Книги" Selector.Selected="OnBooklistSelect">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="83*"/>
-                    <ColumnDefinition Width="369*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
                 </Grid.ColumnDefinitions>
-                <Custom:SelectiveScrollingGrid Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="67,107,0,0" VerticalAlignment="Top" Width="100"/>
+                <Custom:SelectiveScrollingGrid Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="67,107,-167,0" VerticalAlignment="Top" Width="100"/>
+                <Custom:DataGrid x:Name="booksDataGrid"
+                                 HorizontalAlignment="Left"
+                                 Margin="10,10,0,0"
+                                 VerticalAlignment="Top"
+                                 Height="230"
+                                 Width="432"
+                                 RenderTransformOrigin="0.472,0.487"
+                                 AutoGenerateColumns="True"
+                                 ItemsSource="{Binding}"
+                                 AutoGeneratingColumn="booksDataGrid_AutoGeneratingColumn"
+                                 RowEditEnding="booksDataGrid_RowEditEnding"
+                                 CanUserAddRows="True"
+                                 CanUserDeleteRows="True"
+                                 SizeChanged="booksDataGrid_SizeChanged"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Издательства" Height="22" VerticalAlignment="Top" Margin="-2,0" Selector.Selected="OnPublistSelect">
+        <TabItem Header="Издательства"
+                 Height="22"
+                 VerticalAlignment="Top"
+                 Margin="-2,0" Selector.Selected="OnPublistSelect">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
                     <ColumnDefinition Width="73*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.754,0.59"/>
-                <Custom:DataGrid x:Name="publishersDataGrid" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="214" Width="432" AutoGenerateColumns="True" ItemsSource="{Binding}" AutoGeneratingColumn="publishersDataGrid_AutoGeneratingColumn" RowEditEnding="publishersDataGrid_RowEditEnding"/>
+                <Custom:DataGrid x:Name="publishersDataGrid"
+                                 HorizontalAlignment="Left"
+                                 Margin="10,26,0,0"
+                                 VerticalAlignment="Top"
+                                 Grid.ColumnSpan="2"
+                                 Height="214"
+                                 Width="432"
+                                 AutoGenerateColumns="True"
+                                 ItemsSource="{Binding}"
+                                 AutoGeneratingColumn="publishersDataGrid_AutoGeneratingColumn"
+                                 RowEditEnding="publishersDataGrid_RowEditEnding"
+                                 CanUserAddRows="True"
+                                 CanUserDeleteRows="True"/>
+                <ComboBox x:Name="comboBox" Grid.Column="1" HorizontalAlignment="Left" Margin="340,66,-168,0" VerticalAlignment="Top" Width="120"/>
+                <!--SizeChanged="publishersDataGrid_SizeChanged"-->
             </Grid>
         </TabItem>
         <TabItem Header="Авторы" Height="22" VerticalAlignment="Top" Margin="-2,0">
